@@ -221,20 +221,20 @@ def big_shoe_rebounds
   rebounds
 end
 
-# def bonus
-#   biggest_shoes = 0
-#   rebounds = 0
-#   game_hash.each do |key, team|
-#     team.each do |attribute, stats|
-#       if attribute == :players
-#         stats.each do |player|
-#           if player[:shoe] > biggest_shoes
-#             biggest_shoes = player[:shoe]
-#             rebounds = player[:rebounds]
-#           end
-#         end
-#       end
-#     end
-#   end
-#   rebounds
-# end
+def most_points_scored
+  high_scorer = ""
+  most_points = 0
+  game_hash.each do |key, team|
+    team.each do |attribute, stats|
+      if attribute == :players
+        stats.each do |player|
+          if player[:points] > most_points
+            most_points = player[:points]
+            high_scorer = player[:player_name]
+          end
+        end
+      end
+    end
+  end
+  high_scorer
+end
