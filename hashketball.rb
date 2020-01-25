@@ -238,3 +238,52 @@ def most_points_scored
   end
   high_scorer
 end
+
+def winning_team
+  scores = {
+    'Brooklyn Nets' => 0,
+    'Charlotte Hornets' => 0
+  }
+  game_hash.each do |key, team|
+      team[:players].each do |stats|
+        scores[team[:team_name]] += stats[:points]
+      end
+    end
+  scores.max_by { |a, b| b }.first
+end
+
+def player_with_longest_name
+  longest_name = ""
+  most_characters = 0
+  game_hash.each do |key, team|
+    team.each do |attribute, stats|
+      if attribute == :players
+        stats.each do |player|
+          if player[:player_name].size > most_characters
+            most_characters = player[:player_name].size
+            longest_name = player[:player_name]
+          end
+        end
+      end
+    end
+  end
+  longest_name
+end
+
+def long_name_steals_a_ton?
+  high_stealer = ""
+  most_steals = 0
+  game_hash.each do |key, team|
+    team.each do |attribute, stats|
+      if attribute == :players
+        stats.each do |player|
+          if player[:steals] > most_steals
+            most_steals = player[:steals]
+            high_stealer = player[:player_name]
+          end
+        end
+      end
+    end
+  end
+  return high_stealer == player_with_longest_name
+end
